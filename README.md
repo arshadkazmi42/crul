@@ -1,4 +1,4 @@
-# BLC
+# CRUL
 
 - Find all the links of parent same domain from the response of the input link.
 - Stores all links to output directory
