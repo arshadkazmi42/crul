@@ -8,8 +8,6 @@ from scanner import Scanner
 
 
 MAX_POOL_SIZE = 10
-CRAWL_DEPTH = 10
-CRAW_START_DEPTH = 0
 
 
 class Main:
@@ -17,7 +15,6 @@ class Main:
     def __init__(self, url, is_crawl_request=False):
 
         self.should_crawl = is_crawl_request
-        self.crawl_depth = CRAW_START_DEPTH
 
         self.link = Link(url)
         self.blc = BrokenLinkChecker()
@@ -84,12 +81,7 @@ class Main:
 
         self.file_operations.write_in_broken(url)
 
-    def process_crawl(self, url, depth=0):
-
-        print('Depth', depth)
-        if depth >= CRAWL_DEPTH:
-            print('Returning None')
-            return None
+    def process_crawl(self, url):
 
         is_mime_url = self.link.is_mime_url(url)
         is_same_domain_url = self.link.is_same_domain(url)
@@ -97,6 +89,4 @@ class Main:
         if is_same_domain_url and not is_mime_url:
 
             print(f'Found link: {url}')
-            
             self.file_operations.write_in_links(url)
-            self.process_crawl(url, depth + 1)
